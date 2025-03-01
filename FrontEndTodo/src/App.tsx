@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getTasks, createTask, updateTask, deleteTask } from "./api";
 
 interface Task {
@@ -27,7 +27,7 @@ function App() {
     fetchTasks();
   };
 
-  const handleToggleTask = async (id: number, completed: boolean) => {
+  const handleToggleTask = async (id: number) => {
     const updatedTasks = tasks.map((task) =>
       task.id === id ? { ...task, completed: !task.completed } : task
     );
@@ -56,7 +56,7 @@ function App() {
             <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
               {task.title}
             </span>
-            <button onClick={() => handleToggleTask(task.id, task.completed)}>
+            <button onClick={() => handleToggleTask(task.id)}>
               {task.completed ? "Desmarcar" : "Completar"}
             </button>
             <button onClick={() => handleDeleteTask(task.id)}>Eliminar</button>
