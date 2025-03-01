@@ -8,8 +8,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:h2:mem:todo
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=password
-    depends_on:
-      - db
+    networks:
+      - todo-network
 
   frontend:
     build: ./FrontEndTodo
@@ -17,14 +17,10 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    networks:
+      - todo-network
 
-  db:
-    image: mysql:8
-    restart: always
-    environment:
-      MYSQL_DATABASE: todo
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
+networks:
+  todo-network:
+    name: expo_todo-network
+    driver: bridge
